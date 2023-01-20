@@ -1,4 +1,5 @@
 import { AuthenticatedRequest } from "@/middlewares";
+import { CEPAddressGet } from "@/protocols";
 import enrollmentsService from "@/services/enrollments-service";
 import { Response } from "express";
 import httpStatus from "http-status";
@@ -33,6 +34,7 @@ export async function getAddressFromCEP(req: AuthenticatedRequest, res: Response
 
   try {
     const address = await enrollmentsService.getAddressFromCEP(cep);
+
     res.status(httpStatus.OK).send(address);
   } catch (error) {
     if (error.name === "NotFoundError") {
